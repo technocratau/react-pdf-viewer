@@ -14,15 +14,16 @@ import { VerifyPassword } from './LoadingStatus';
 
 interface AskingPasswordProps {
     verifyPasswordFn: VerifyPassword;
+    passwordInput: string;
 }
 
-const AskingPassword: React.FC<AskingPasswordProps> = ({ verifyPasswordFn }) => {
+const AskingPassword: React.FC<AskingPasswordProps> = ({ verifyPasswordFn, passwordInput }) => {
     const l10n = useContext(LocalizationContext);
     const theme = useContext(ThemeContext);
     const [password, setPassword] = useState('');
 
     const changePassword = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value);
-    const submit = (): void => verifyPasswordFn(password);
+    const submit = (): void => verifyPasswordFn(passwordInput);
 
     return (
         <div className={`${theme.prefixClass}-asking-password`}>

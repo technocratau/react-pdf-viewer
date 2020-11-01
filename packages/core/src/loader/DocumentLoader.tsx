@@ -97,7 +97,7 @@ const DocumentLoader: React.FC<DocumentLoaderProps> = ({ characterMap, file, ren
 
     switch (true) {
         case (status instanceof AskForPasswordState):
-            return <AskingPassword verifyPasswordFn={(status as AskForPasswordState).verifyPasswordFn} />;
+            return <AskingPassword verifyPasswordFn={(status as AskForPasswordState).verifyPasswordFn} passwordInput={password} />;
         case (status instanceof WrongPasswordState):
             return <WrongPassword verifyPasswordFn={(status as WrongPasswordState).verifyPasswordFn} />;
         case (status instanceof CompletedState):
