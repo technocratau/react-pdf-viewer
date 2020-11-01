@@ -30,9 +30,10 @@ interface DocumentLoaderProps {
     renderError?: RenderError;
     renderLoader?(percentages: number): ReactElement;
     render(doc: PdfJs.PdfDocument): ReactElement;
+    password?: string;
 }
 
-const DocumentLoader: React.FC<DocumentLoaderProps> = ({ characterMap, file, render, renderError, renderLoader }) => {
+const DocumentLoader: React.FC<DocumentLoaderProps> = ({ characterMap, file, render, renderError, renderLoader, password }) => {
     const theme = useContext(ThemeContext);
     const [status, setStatus] = useState<LoadingStatus>(new LoadingState(0));
 
@@ -51,7 +52,8 @@ const DocumentLoader: React.FC<DocumentLoaderProps> = ({ characterMap, file, ren
         const params = Object.assign(
             {},
             ('string' === typeof file) ? { url: file } : { data: file },
-            characterMap ? { cMapUrl: characterMap.url, cMapPacked: characterMap.isCompressed } : {}
+            characterMap ? { cMapUrl: characterMap.url, cMapPacked: characterMap.isCompressed } : {},
+            password ? { password: password } : {}
         );
 
         const loadingTask = PdfJs.getDocument(params);

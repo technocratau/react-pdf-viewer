@@ -50,6 +50,7 @@ export interface ViewerProps {
     // If it's not set, the initial zoom level will be calculated based on the dimesion of page and the container width
     defaultScale?: number | SpecialZoomLevel;
     fileUrl: string | Uint8Array;
+    password: string;
     // The page (zero-index based) that will be displayed initially
     initialPage?: number;
     // Plugins
@@ -72,6 +73,7 @@ const Viewer: React.FC<ViewerProps> = ({
     characterMap,
     defaultScale,
     fileUrl,
+    password,
     initialPage = 0,
     localization,
     plugins = [],
@@ -87,12 +89,14 @@ const Viewer: React.FC<ViewerProps> = ({
     const [file, setFile] = useState<OpenFile>({
         data: fileUrl,
         name: (typeof fileUrl === 'string') ? fileUrl : '',
+        password: password,
     });
 
     const openFile = (fileName: string, data: Uint8Array) => {
         setFile({
             data,
             name: fileName,
+        password: password,
         });
     };
 
@@ -100,6 +104,7 @@ const Viewer: React.FC<ViewerProps> = ({
         setFile({
             data: fileUrl,
             name: (typeof fileUrl === 'string') ? fileUrl : '',
+        password: password,
         });
     }, [fileUrl]);
 
@@ -110,6 +115,7 @@ const Viewer: React.FC<ViewerProps> = ({
                     <DocumentLoader
                         characterMap={characterMap}
                         file={file.data}
+                        password={file.password}
                         render={(doc: PdfJs.PdfDocument) => (
                             <PageSizeCalculator
                                 doc={doc}
