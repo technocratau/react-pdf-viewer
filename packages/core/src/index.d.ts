@@ -513,7 +513,7 @@ export interface Store<T extends StoreState> {
 
 export function createStore<T extends StoreState>(initialState?: T): Store<T>;
 
-// The character maps that can be downloaded from 
+// The character maps that can be downloaded from
 // https://github.com/mozilla/pdfjs-dist/tree/master/cmaps
 export interface CharacterMap {
     isCompressed: boolean;
@@ -527,6 +527,7 @@ export interface ViewerProps {
     // So that, the document will fit best within the container
     defaultScale?: number | SpecialZoomLevel;
     fileUrl: string | Uint8Array;
+    password: string;
     // The page (zero-index based) that will be displayed initially
     initialPage?: number;
     // Plugins
